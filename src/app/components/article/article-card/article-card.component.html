@@ -1,0 +1,21 @@
+<div *ngIf='article && article.published == true'>
+  <div class="card" style="width: 100%; box-shadow: 5px 5px 5px grey">
+    <div>
+      <a routerLink='/article/{{article.id}}'><img *ngIf='article.coverImage' class="card-img-top" style='height: 10em;' src="{{coverImageUrl}}/{{article.coverImage.name}}" alt="Cover Image"></a>
+      <a routerLink='/article/{{article.id}}'><img *ngIf='!article.coverImage' class="card-img-top" style='height: 10em;' src="./assets/noImageAvailable.jpeg" alt="Cover Image"></a>
+    </div>
+    <div class="card-body" style='padding-bottom: 0.5em'>
+      <h6 class="card-title"><a routerLink='/article/{{article.id}}' style='font-size:1.25em'>{{article.title}}</a></h6>
+    </div>
+    <div class="card-footer text-muted">
+      <div >
+        <div style='display: inline-block' *ngFor='let t of article.tags'>
+          <a [ngStyle]="{'color': t.color}" >{{t.name}}</a>&nbsp;
+        </div>
+      </div>
+      <div style='font-size: 11px'>
+      {{article.createdAt.substring(0,10)}}  &nbsp; |&nbsp; Read Time: {{article.readTime}}min
+      </div>
+    </div>
+  </div>
+</div><br />

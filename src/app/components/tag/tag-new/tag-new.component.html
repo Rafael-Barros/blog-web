@@ -1,0 +1,12 @@
+<button class="btn btn-sm btn-outline-success" (click)='onNewTag()'>New Tag</button>
+<br><br>
+<div class="form-group" [hidden]='!creating'>
+  <span>Name</span>
+  <input #name class="form-control" type="text" placeholder="Tag's name">
+  <span>Color</span>
+  <input #color class="form-control" type="text" placeholder="Tag's color (hexadecimal)" ><br>
+  <div class="">
+    <button class="btn btn-sm btn-outline-success" (click)='onCreate(name.value, color.value)'>Create</button>&nbsp;&nbsp;
+    <button class="btn btn-sm btn-outline-danger" (click)='onCancel()'>Cancel</button>
+  </div>
+</div>

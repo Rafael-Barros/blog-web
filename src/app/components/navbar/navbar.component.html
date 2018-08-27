@@ -1,0 +1,72 @@
+<nav class="margin navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <a class="navbar-brand" routerLink='home' style='font-size:16px'>RBS <small style='font-size:12px'>Programming</small></a>
+  <button #ham class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse"  id="navbarsExampleDefault">
+
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a (click)="hamClicked(ham)" class="nav-link" data-toggle='dropdown' routerLink='home' routerLinkActive='bla'>Home</a>
+      </li>
+      <li class="nav-item dropdown" routerLinkActive='bla'>
+          <a class="nav-link dropdown-toggle" style='cursor:pointer; display: inline-block' id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Topics</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a (click)="hamClicked(ham)" *ngFor='let tag of tags' class="dropdown-item ble" routerLinkActive='bla' routerLink="topics/{{tag.name}}">{{tag.name}}</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" *ngIf='authService.isAuthor()' routerLinkActive='bla'>
+          <a class="nav-link dropdown-toggle" style='cursor:pointer; display: inline-block' id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Author</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a (click)="hamClicked(ham)" class="dropdown-item ble" routerLink='author/new-article'>New Article</a>
+          <a (click)="hamClicked(ham)" class="dropdown-item ble" routerLink='author/articles'>My Articles</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" *ngIf='authService.isAdmin()' routerLinkActive='bla'>
+          <a class="nav-link dropdown-toggle" style='cursor:pointer; display: inline-block' id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a (click)="hamClicked(ham)" class="dropdown-item ble" routerLink='admin/users'>Users</a>
+          <a (click)="hamClicked(ham)" class="dropdown-item ble" routerLink='admin/articles'>Articles</a>
+          <a (click)="hamClicked(ham)" class="dropdown-item ble" routerLink='admin/tags'>Tags</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a (click)="hamClicked(ham)" class="nav-link" routerLink='about' routerLinkActive='bla'>About</a>
+      </li>
+    </ul>
+
+    <ul class='navbar-nav' *ngIf='authService.isLoggedIn()' >
+      <li class="nav-item dropdown">
+          <img style='width:2.5em; border-radius: 10px;' src='{{userImage}}' />&nbsp;
+          <a class="nav-link dropdown-toggle" routerLinkActive='bla' style='cursor:pointer; display: inline-block' id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{username}}</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a (click)="hamClicked(ham)" class="dropdown-item ble" routerLinkActive='bla' routerLink='profile'>Profile</a>
+          <a (click)="hamClicked(ham)" class="dropdown-item ble" routerLinkActive='bla' (click)='onLogout()'>Logout</a>
+        </div>
+      </li>
+    </ul>
+
+    <ul class='navbar-nav'>
+      <li>
+        <a (click)="hamClicked(ham)" class="nav-link" routerLink='signin' routerLinkActive='bla' *ngIf='!authService.isLoggedIn()'>Sign In</a>
+      </li>
+      <li>
+        <a (click)="hamClicked(ham)" class="nav-link" routerLink='signup' routerLinkActive='bla' *ngIf='!authService.isLoggedIn()'>Sign Up</a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+<!-- <form class="form-inline my-2 my-lg-0">
+  <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>&nbsp; -->
+
+<!-- <li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" routerLinkActive="bla" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown01">
+    <a class="dropdown-item" routerLink='admin' routerLinkActive="bla">Articles</a>
+    <a class="dropdown-item" href="#">Users</a>
+  </div>
+</li> -->

@@ -1,0 +1,15 @@
+<div class="">
+  <div>
+    <app-article-view [article]='article' [coverImageUrl]='coverImageUrl'></app-article-view>
+  </div>
+  <div class='col-md-9 offset-md-1 col-lg-8 offset-lg-2'>
+    <app-comment-new (comment)='onComment($event)' [articleId]='articleId'></app-comment-new>
+  </div>
+  <br>
+
+  <div class='col-md-9 offset-md-1 col-lg-8 offset-lg-2' *ngIf='comments' >
+    <app-comment-list (commentDeleted)='onCommentDelete($event)' [comments]='comments.slice(0,numberOfCommentsShown)'></app-comment-list>
+    <br />
+  </div>
+  <br>
+</div>

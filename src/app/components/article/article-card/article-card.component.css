@@ -1,0 +1,1 @@
+a:hover:not(.active) {color: grey; cursor: pointer; text-decoration: none;}

@@ -1,0 +1,19 @@
+<div class="container">
+  <div *ngIf='user' class='row'>
+    <div class="col-12 col-sm-5 col-md-4 col-lg-3 col-xl-3">
+      <div *ngIf='user.profileImage'>
+        <img style='width:100%; border-radius: 10px;' src='{{userImage}}' />
+      </div>
+      <div *ngIf='!user.profileImage'>
+        <img style='width:100%; border-radius: 10px;' src='./assets/noUserImage.png' />
+      </div>
+      <button style='width:100%;' class='btn btn-outline-secondary' (click)='profileImage.click()'>Change Image</button>
+      <input #profileImage (change)='onChangeImage($event)' style='display:none' type="file">
+    </div>
+    <div class="col-12 col-sm-7 col-md-8 col-lg-9 col-lg-9">
+      <h2>{{user.firstName}} {{user.lastName}}</h2>
+      <p><strong>Username: </strong> <span>{{user.username}}</span></p>
+      <p><strong>Email: </strong><span>{{user.email}}</span></p>
+    </div>
+  </div>
+</div>

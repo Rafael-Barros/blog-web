@@ -1,0 +1,13 @@
+<div id='message' *ngIf='articles && articles.length == 0'>
+  <h4>No article available...</h4>
+</div>
+<h4>{{name}} Articles</h4>
+<hr>
+<div id='articles' class="row">
+  <app-article-card class='col-xs-12 col-sm-6 col-md-4 col-lg-3' *ngFor='let article of articles' [article]='article'></app-article-card>
+</div>
+<div id='pagination' class="center">
+  <div class="pagination">
+    <a *ngFor='let p of pages; let i = index;' (click)='setPage(i, $event)' [ngClass]="{'active': i == page}">{{i+1}}</a>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div *ngIf='comment'>
+  <div class="card" style="width: 100%; box-shadow: 5px 5px 5px grey; background:#f4f5f7">
+    <div class="card-body" style='padding: 0.5em'>
+      <div class="row">
+        <div class="col-3 col-sm-2 col-md-2 col-lg-1">
+          <img *ngIf='user && user.profileImage' style='width: 2.5em; border-radius: 10px; height: 2.5em' src='{{imageUrl}}/files/download/{{user.profileImage.name}}' alt='{{comment.user_id}}'/>
+          <img *ngIf='user && !user.profileImage' style='width: 2em; border-radius: 10px; height: 2em' src='{{imageUrl}}/files/download/1532633335633_user-icon.png' alt='{{comment.user_id}}'/>
+        </div>
+
+        <div *ngIf='user' style='padding-left: 2px; padding-right: 2px;' class="col-9 col-sm-10 col-lg-11">
+          <span ><a href=''>{{user.firstName}} {{user.lastName}}: </a></span>
+          <span>{{comment.text}}</span><br>
+
+          <textarea [hidden]="!editing" #content class='form-control' style='width:90%' >{{comment.text}}</textarea>
+
+          <button *ngIf='authService.isLoggedIn() && !editing' class="btn btn-sm btn-outline-secondary" (click)='onReply()'>reply</button>&nbsp;
+
+          <app-reply-new (replyEmitter)='onReplyCreation($event)' [commentId]='comment.id' *ngIf='replying'></app-reply-new>
+
+          <span class='btn' title='Edit' *ngIf='user.id == authService.getAuthUserId() && !editing && !replying'>
+            <i  class="material-icons md-18 btn-outline-warning" (click)='onEdit(comment.id)'>edit</i>
+          </span>
+
+          <span  title='Save' *ngIf='user.id == authService.getAuthUserId() && editing'>
+            <span  class="btn btn-sm btn-outline-warning" (click)='onSaveEdit(comment.id, content.value)'>Save</span>
+          </span>
+
+          <span class='btn' title='Delete' *ngIf='user.id == authService.getAuthUserId() && editing'>
+            <span class="btn btn-sm btn-outline-danger" (click)='onCancel()'>cancel</span>
+          </span>
+
+          <span class='btn' title='Delete' *ngIf='user.id == authService.getAuthUserId() && !editing && !replying'>
+            <i class="material-icons md-18 btn-outline-danger"  (click)='onDelete(comment.id)'>delete</i>
+          </span>
+
+          <small *ngIf='!editing && !replying'>{{comment.createdAt.substring(0,10)}}</small>
+          <br>
+
+          <app-reply-cards (replyDeleteEmitter)='onDeleteReply($event)' [replies]='replies' [commentId]='comment.id' [userId]='comment.user_id'></app-reply-cards>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

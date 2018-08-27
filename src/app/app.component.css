@@ -1,0 +1,10 @@
+#app{
+  height: 100vh;
+}
+
+.page-margin{
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 0px;
+}

@@ -1,0 +1,96 @@
+<div class='container' *ngIf='articles && articles.length > 0 && !editing'>
+  <table class="table table-striped table-hover">
+    <thead class='thead-dark'>
+      <tr>
+        <th  scope="col">Article</th>
+        <th scope='col'>Tags</th>
+        <th scope="col">Published</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody *ngFor='let a of articles;'>
+
+      <tr>
+        <td style='max-width:12em'><a routerLink='/article/{{a.id}}'>{{a.title}}</a></td>
+        <td ><span *ngFor='let t of a.tags' [ngStyle]="{'color': t.color}">{{t.name}}<br /></span></td>
+        <td style='padding-right:1px; padding-left:1px' [ngStyle]="{'color': a.published ? 'green' : 'red'}">{{a.published}}<span title='publish' *ngIf='authService.isAdmin() && !a.published' class='btn' (click)='publishArticle(a.id)'><i class="material-icons  md-18 btn-outline-success">publish</i></span>
+        <span title='unpublish' *ngIf='authService.isAdmin() && a.published' class='btn' (click)='publishArticle(a.id)'><i class="material-icons  md-18 btn-outline-danger">undo</i></span></td>
+        <td style='padding-right:1px; padding-left:1px'>
+          <span title='edit' class='btn' (click)='onEdit(a)'>  <i  class="material-icons md-18 btn-outline-warning">edit</i></span>
+          <span title='delete' class='btn' (click)='onDelete(a.id)'><i class="material-icons md-18 btn-outline-danger">delete</i></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf='articles && articles.length == 0'>
+  <h5>You have no published articles.</h5>
+</div>
+<div class="center" *ngIf='!editing'>
+  <div class="pagination">
+    <a *ngFor='let p of pages; let i = index;' (click)='setPage(i, $event)' [ngClass]="{'active': i == page}">{{i+1}}</a>
+  </div>
+</div>
+
+
+<!-- EDITING -->
+
+<div class="" *ngIf='editing'>
+
+  <h3>Article</h3>
+  <br>
+    <h5>Select Tags:</h5>
+    <!-- [ngStyle]="{'color': a.published ? 'green' : 'red'}" -->
+    <div style='display:inline-block' *ngFor='let tag of tags'>
+      <button [ngClass]="['btn', 'btn-outline-secondary']" (click)='addSelectedTag(tag)'>{{tag.name}}</button>&nbsp;&nbsp;
+    </div><br><br>
+
+    <p>Selected Tags</p>
+    <div *ngFor='let tag of selectedTags'>
+      <span [ngStyle]="{'color': tag.color}">
+        {{tag.name}}
+        <button (click)='removeSelectedTag(tag)' style='padding-bottom: 0.2px; padding-top: 0.2px' class='btn btn-sm btn-outline-danger'>x</button>
+      </span>
+    </div>
+    <br>
+
+    <div id='coverImage'>
+      <button class='btn btn-outline-primary box2' (click)='fileInput.click()'>Upload Cover Image</button>
+      <input #fileInput style='display:none' type="file" class="form-control box2"  (change)='onFileSelected($event)'>
+      &nbsp;&nbsp;<p class="box2">Selected Image:&nbsp; <img style='width:3.5em; height: 3em;' *ngIf='coverImage' [src]="imagePreview"></p>
+    </div>
+
+
+    <div class="input-group mb-3" style='box-shadow:5px 5px 5px grey'>
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Title</span>
+      </div>
+      <input #title type='text' class="form-control" value='{{articleEdit.title}}'>
+    </div>
+
+    <div class="input-group mb-3" style='box-shadow:5px 5px 5px grey'>
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Description</span>
+      </div>
+      <input #description type='text' class="form-control" value='{{articleEdit.description}}'>
+    </div>
+
+    <div class="input-group mb-3" style='box-shadow:5px 5px 5px grey'>
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Read time</span>
+      </div>
+      <input #readTime type="text" class="form-control" value='{{articleEdit.readTime}}'>
+    </div>
+
+    <div style='box-shadow:5px 5px 5px grey'>
+      <div class="input-group-prepend">
+        <span class="input-group-text btn-block">Content</span>
+      </div>
+      <textarea name='editor1' #content class="form-control" value='{{articleEdit.content}}'></textarea>
+    </div><br />
+
+    <button style='box-shadow:2px 2px 5px;' class="btn btn-outline-secondary" (click)='onSave(title.value, description.value, readTime.value, content.value)'>Save</button>&nbsp;&nbsp;
+    <button style='box-shadow:2px 2px 5px;' class="btn btn-outline-danger" (click)='onCancelEditing()'>Cancel</button>
+    <br /><br />
+
+</div>

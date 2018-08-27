@@ -1,0 +1,42 @@
+<app-tag-new (tag)='createTag($event)'></app-tag-new>
+<div *ngIf='tags && tags.length > 0'>
+  <table class="table table-striped">
+    <thead class='thead-dark'>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope='col'>Color</th>
+        <th scope='col'>Action</th>
+      </tr>
+    </thead>
+    <tbody *ngFor='let tag of tags'>
+
+      <tr>
+        <td >{{tag.name}}</td>
+        <td [ngStyle]="{'color': tag.color}">{{tag.color}}</td>
+        <td>
+          <button *ngIf='!editing'  class='btn btn-outline-primary' (click)='onEdit(tag)'>Edit</button>&nbsp;&nbsp;
+          <button *ngIf='!editing' class='btn btn-outline-danger' (click)='onDelete(tag.id)'>Delete</button>&nbsp;&nbsp;
+          <div [hidden]='!editing '>
+            <div [hidden]='editingTagId != tag.id'>
+              <span>Name</span>
+              <input #name class='form-control' type="text" value="{{tag.name}}">
+              <span>Color</span>
+              <input #color class='form-control' type="text" value="{{tag.color}}">
+              <button class='btn btn-outline-success' (click)='onUpdate(name.value, color.value)'>Update</button>&nbsp;&nbsp;
+              <button class='btn btn-outline-danger' (click)='onCancel()'>Cancel</button>&nbsp;&nbsp;
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- <div *ngIf='articles && articles.length == 0'>
+  <h5>You have no published articles.</h5>
+</div>
+<div class="center">
+  <div class="pagination">
+    <a *ngFor='let p of pages; let i = index;' (click)='setPage(i, $event)' [ngClass]="{'active': i == page}">{{i+1}}</a>
+  </div>
+</div> -->

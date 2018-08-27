@@ -1,0 +1,38 @@
+<div *ngIf='reply && reply.comment_id == commentId'>
+  <div class="card" style="width: 95%; background:#f4f5f7">
+    <div class="card-body" style='padding: 0.5em'>
+      <div class="row">
+        <div class="col-3 col-sm-2 col-md-2 col-lg-1">
+          <img *ngIf='user && user.profileImage' style='width: 2.5em; border-radius: 10px; height: 2.5em' src='{{imageUrl}}/files/download/{{user.profileImage.name}}' alt='{{userId}}'/>
+          <img *ngIf='user && !user.profileImage' style='width: 2em; border-radius: 10px; height: 2em' src='{{imageUrl}}/files/download/1532633335633_user-icon.png' alt='{{userId}}'/>
+        </div>
+
+        <div *ngIf='user' style='padding-left: 2px; padding-right: 2px;' class="col-9 col-sm-10 col-lg-11">
+          <span ><a href=''>{{user.firstName}} {{user.lastName}}: </a></span>
+          <span>{{reply.text}}</span><br>
+
+          <textarea [hidden]="!editing" #r class='form-control' style='width:90%' >{{reply.text}}</textarea>
+
+          <span class='btn' title='Edit' *ngIf='user.id == authService.getAuthUserId() && !editing && !replying'>
+            <i  class="material-icons md-18 btn-outline-warning" (click)='onEdit(reply.id)'>edit</i>
+          </span>
+
+          <span  title='Save' *ngIf='user.id == authService.getAuthUserId() && editing'>
+            <span  class="btn btn-sm btn-outline-warning" (click)='onSaveEdit(reply.id, r.value)'>Save</span>
+          </span>
+
+          <span class='btn' title='Delete' *ngIf='user.id == authService.getAuthUserId() && editing'>
+            <span class="btn btn-sm btn-outline-danger" (click)='onCancel()'>cancel</span>
+          </span>
+
+          <span class='btn' title='Delete' *ngIf='user.id == authService.getAuthUserId() && !editing && !replying'>
+            <i class="material-icons md-18 btn-outline-danger"  (click)='onDelete(reply.id)'>delete</i>
+          </span>
+
+          <small *ngIf='!editing && !replying'>{{reply.createdAt.substring(0,10)}}</small>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

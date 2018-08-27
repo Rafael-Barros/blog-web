@@ -1,0 +1,18 @@
+<div class="container">
+  <h3 style='text-align:center'>Sign In</h3>
+  <br />
+  <h5>Username or Email</h5>
+  <input style='box-shadow:2px 2px 5px' #username type="text" class="form-control">
+  <br />
+  <h5>Password</h5>
+  <input style='box-shadow:2px 2px 5px' #password type="password" class="form-control" (keyup)='enterPressed($event, username.value, password.value)'>
+  <br />
+  <div *ngIf='errorMessages && errorMessages.length > 1'>
+    <p class='alert alert-danger' *ngFor='let error of errorMessages'>{{error.field}} {{error.defaultMessage}}</p>
+  </div>
+  <div *ngIf='errorMessages && errorMessages.length == 1'>
+    <p class='alert alert-danger' *ngFor='let error of errorMessages'>{{error}}</p>
+  </div>
+  <button style='box-shadow:2px 2px 5px' class='btn btn-md btn-outline-secondary' (click)='onSignin(username.value, password.value)'>Sign In</button>
+  <br /><br />
+</div>

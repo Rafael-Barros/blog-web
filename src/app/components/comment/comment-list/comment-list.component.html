@@ -1,0 +1,8 @@
+<div *ngIf='comments && comments.length > 0'  >
+  <h4>&nbsp;&nbsp;&nbsp;Comments</h4>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <app-comment-card (commentEmitter)='onCommentDelete($event, comment)' *ngFor='let comment of comments.slice(0,numberOfCommentsShown)' [comment]='comment'></app-comment-card>
+    <br>
+    <button *ngIf='numberOfCommentsShown < comments.length' class="btn btn-block btn-outline-secondary" (click)='onShowMore()'>show more comments</button>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="container">
+  <div *ngIf='githubUser' class='row'>
+    <div class="col-12 col-sm-5 col-md-4 col-lg-3 col-xl-3">
+      <img style='width:100%; border-radius: 10px;' src='{{githubUser.avatar_url}}' />
+    </div>
+    <div class="col-12 col-sm-7 col-md-8 col-lg-9 col-lg-9">
+      <br>
+      <h4>Name: {{githubUser.name}}</h4>
+      <h4>Location: {{githubUser.location}}</h4>
+      <h4>Github: <a href='{{githubUser.html_url}}' target='_blank'>{{githubUser.html_url}}</a></h4>
+    </div>
+  </div>
+</div>

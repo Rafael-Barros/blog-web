@@ -1,0 +1,20 @@
+<div *ngIf='user'>
+  <div class="card" style="width: 100%; box-shadow: 5px 5px 5px grey">
+    <div class="card-body" style='padding-bottom: 0.5em'>
+      <div class="row">
+
+        <div class="col-4 col-sm-3 col-md-4 col-md-4">
+          <img *ngIf='user.profileImage' style='width: 4.5em; border-radius: 10px; height: 4.5em' src='{{userImageUrl}}'/>
+          <img *ngIf='!user.profileImage' style='width: 4.5em; border-radius: 10px; height: 4.5em%' src='assets/noUserImage.png'/>
+        </div>
+
+        <div class="col-8 col-sm-9 col-md-8 col-md-8" style='padding-left: 0px; padding-right: 0px;' >
+          <h5 class="card-title"><a >{{user.firstName}} {{user.lastName}}</a></h5>
+          Username: <span>{{user.username}}</span><br>
+          <small>{{user.email}}</small><br>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div><br />

@@ -1,0 +1,54 @@
+<h3>Article</h3>
+<br>
+  <h5>Select Tags:</h5>
+  <!-- [ngStyle]="{'color': a.published ? 'green' : 'red'}" -->
+  <div style='display:inline-block' *ngFor='let tag of tags'>
+    <button [ngClass]="['btn', 'btn-outline-secondary']" (click)='addSelectedTag(tag)'>{{tag.name}}</button>&nbsp;&nbsp;
+  </div><br><br>
+
+  <p>Selected Tags</p>
+  <div *ngFor='let tag of selectedTags'>
+    <span [ngStyle]="{'color': tag.color}">
+      {{tag.name}}
+      <button (click)='removeSelectedTag(tag)' style='padding-bottom: 0.2px; padding-top: 0.2px' class='btn btn-sm btn-outline-danger'>x</button>
+    </span>
+  </div>
+  <br>
+
+  <div id='coverImage'>
+    <button class='btn btn-outline-primary box2' (click)='fileInput.click()'>Upload Cover Image</button>
+    <input #fileInput style='display:none' type="file" class="form-control box2"  (change)='onFileSelected($event)'>
+    &nbsp;&nbsp;<p class="box2">Selected Image:&nbsp; <img style='width:3.5em; height: 3em;' *ngIf='coverImage' [src]="imagePreview"></p>
+  </div>
+
+
+  <div class="input-group mb-3" style='box-shadow:5px 5px 5px grey'>
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Title</span>
+    </div>
+    <input #title type='text' class="form-control">
+  </div>
+
+  <div class="input-group mb-3" style='box-shadow:5px 5px 5px grey'>
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Description</span>
+    </div>
+    <input #description type='text' class="form-control">
+  </div>
+
+  <div class="input-group mb-3" style='box-shadow:5px 5px 5px grey'>
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">Read time</span>
+    </div>
+    <input #readTime type="text" class="form-control">
+  </div>
+
+  <div style='box-shadow:5px 5px 5px grey'>
+    <div class="input-group-prepend">
+      <span class="input-group-text btn-block">Content</span>
+    </div>
+    <textarea name='editor1' #content class="form-control"></textarea>
+  </div><br />
+  
+  <button style='box-shadow:2px 2px 5px;' class="btn btn-outline-secondary" (click)='onCreate(title.value, description.value, readTime.value, content.value)'>Create Article</button>
+  <br /><br />
